@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Products</h1>
+
+  <div id="productsContainer"></div>
+
+  <h2>Create Order</h2>
+  <form id="createOrderForm">
+    <label for="productSelect">Select Product:</label>
+    <select id="productSelect"></select>
+    <input type="number" id="orderQuantity" placeholder="Quantity" required>
+    <button type="submit">Create Order</button>
+  </form>
+
+  <h2>Your Orders</h2>
+  <div id="ordersContainer"></div>
+
+  <h2>Update Order</h2>
+  <div id="updateOrderContainer">
+    <label for="updateOrderId">Order ID:</label>
+    <input type="text" id="updateOrderId" placeholder="Enter Order ID">
+    <label for="updateQuantity">New Quantity:</label>
+    <input type="number" id="updateQuantity" placeholder="Enter new quantity">
+    <button id="updateOrderButton">Update Order</button>
+  </div>
+
+  <h2>Delete Order</h2>
+  <div id="deleteOrderContainer">
+    <label for="deleteOrderId">Order ID:</label>
+    <input type="text" id="deleteOrderId" placeholder="Enter Order ID to delete">
+    <button id="deleteOrderButton">Delete Order</button>
+  </div>
+
+  <script>
+    window.onload = async function() {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        window.location.href = '/index.html'; // If no token, redirect to login page
+        return;
+      }
+
+      // Load the list of products
+      const productsResponse = await fetch('/products', {
+        method: 'GET',
+        headers: { 'Authorization': token }
+      });
+
+      const productsResult = await productsResponse.json();
+      if (productsResponse.ok) {
+        const productsContainer = document.getElementById('productsContainer');
+        const productSelect = document.getElementById('productSelect');
+        productsResult.products.forEach(product => {
+          const productElement = document.createElement('div');
+          productElement.textContent = `${product.title} - $${product.price}`;
+          productsContainer.appendChild(productElement);
+
+          const option = document.createElement('option');
+          option.value = product._id;
+          option.textContent = product.title;
+          productSelect.appendChild(option);
+        });
+      } else {
+        alert(productsResult.message);
+      }
+
+      // Load the list of orders
+      const ordersResponse = await fetch('/orders', {
+        method: 'GET',
+        headers: { 'Authorization': token }
+      });
+
+      const ordersResult = await ordersResponse.json();
+      if (ordersResponse.ok) {
+        const ordersContainer = document.getElementById('ordersContainer');
+        ordersResult.orders.forEach(order => {
+          const orderDiv = document.createElement('div');
+          orderDiv.innerHTML = `Order: Product ID - ${order.product_id}, Quantity - ${order.quantity}`;
+          ordersContainer.appendChild(orderDiv);
+        });
+      } else {
+        alert(ordersResult.message);
+      }
+    };
+
+    // Create order
+    document.getElementById('createOrderForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const productId = document.getElementById('productSelect').value;
+      const quantity = document.getElementById('orderQuantity').value;
+      const token = localStorage.getItem('authToken');
+
+      const response = await fetch('/orders', {
+        method: 'POST',
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ product_id: productId, quantity: quantity })
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('Order created successfully');
+        window.location.reload(); // Reload the page to update the list of orders
+      } else {
+        alert(result.message);
+      }
+    });
+
+    // Update order
+    document.getElementById('updateOrderButton').addEventListener('click', async function() {
+      const orderId = document.getElementById('updateOrderId').value;
+      const newQuantity = document.getElementById('updateQuantity').value;
+      if (!orderId || !newQuantity) {
+        alert('Please provide both order ID and new quantity');
+        return;
+      }
+
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`/orders/${orderId}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quantity: newQuantity })
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('Order updated successfully');
+        window.location.reload(); // Reload the page to update the list of orders
+      } else {
+        alert(result.message);
+      }
+    });
+
+    // Delete order
+    document.getElementById('deleteOrderButton').addEventListener('click', async function() {
+      const orderId = document.getElementById('deleteOrderId').value;
+      if (!orderId) {
+        alert('Please provide an order ID to delete');
+        return;
+      }
+
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`/orders/${orderId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': token
+        }
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('Order deleted successfully');
+        window.location.reload(); // Reload the page to update the list of orders
+      } else {
+        alert(result.message);
+      }
+    });
+  </script>
+</body>
+</html>
