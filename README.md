@@ -11,24 +11,28 @@ Also, make sure that MongoDB is running locally.
 Installation
 Clone the repository to your local machine:
 
-bash```
+bash
+```
 git clone https://github.com/AikaBe/nosql-final.git
 ```
 Navigate to the project directory:
 
-bash```
+bash
+```
 cd nosql-final
 ```
 Install the dependencies:
 
-bash```
+bash
+```
 npm init -y
 npm install express mongoose bcryptjs jsonwebtoken body-parser path
 ```
 Running the Application
 To run the application, use the following command:
 
-bash```
+bash
+```
 node app.js
 ```
 The application will start on port 3000. You can access the API endpoints via http://localhost:3000.
@@ -45,7 +49,8 @@ This project includes a separate Go file (data_collection.go) for collecting dat
 Running the Data Collection Script
 To run the data collection script, make sure you have Go installed on your machine. Then, execute the following command in the project directory:
 
-bash```
+bash
+```
 go run data_collection.go
 ```
 This will collect the required data from an external API and process it accordingly.
