@@ -55,4 +55,4 @@ go run data_collection.go
 ```
 This will collect the required data from an external API and process it accordingly.
 
-![erd_diagram](5305302827503054038.jpg)
+![erd_diagram](5305302827503054051.jpg)
