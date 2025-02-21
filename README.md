@@ -55,4 +55,8 @@ go run data_collection.go
 ```
 This will collect the required data from an external API and process it accordingly.
 
+### Deployment 
+# Render
+https://nosql-final-3.onrender.com
+
 ![erd_diagram](5307554627316740981.jpg)
