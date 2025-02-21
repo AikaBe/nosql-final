@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Products</h1>
+
+  <div id="productsContainer"></div>
+
+  <div id="ordersSection" style="display: none;">
+  <h2>Create Order</h2>
+  <form id="createOrderForm">
+    <label for="productSelect">Select Product:</label>
+    <select id="productSelect"></select>
+    <input type="number" id="orderQuantity" placeholder="Quantity" required>
+    <button type="submit">Create Order</button>
+  </form>
+
+  <h2>Update Order</h2>
+  <div id="updateOrderContainer">
+    <label for="updateOrderId">Order ID:</label>
+    <input type="text" id="updateOrderId" placeholder="Enter Order ID">
+    <label for="updateQuantity">New Quantity:</label>
+    <input type="number" id="updateQuantity" placeholder="Enter new quantity">
+    <button id="updateOrderButton">Update Order</button>
+  </div>
+
+  <h2>Delete Order</h2>
+  <div id="deleteOrderContainer">
+    <label for="deleteOrderId">Order ID:</label>
+    <input type="text" id="deleteOrderId" placeholder="Enter Order ID to delete">
+    <button id="deleteOrderButton">Delete Order</button>
+  </div>
+</div>
+
+
+  <div id="productsSection" style="display: none;">
+  <h2>Create Product</h2>
+<form id="createProductForm">
+  <label for="productName">Product Name:</label>
+  <input type="text" id="productName" placeholder="Enter product name" required>
+  
+  <label for="productDescription">Description:</label>
+  <input type="text" id="productDescription" placeholder="Enter product description" required>
+
+  <label for="productPrice">Price:</label>
+  <input type="number" id="productPrice" placeholder="Enter product price" required>
+
+  <button type="submit">Create Product</button>
+</form>
+
+<h2>Update Product</h2>
+<div id="updateProductContainer">
+  <label for="updateProductId">Product ID:</label>
+  <input type="text" id="updateProductId" placeholder="Enter Product ID">
+
+  <label for="updateProductName">New Name:</label>
+  <input type="text" id="updateProductName" placeholder="Enter new name">
+
+  <label for="updateProductDescription">New Description:</label>
+  <input type="text" id="updateProductDescription" placeholder="Enter new description">
+
+  <label for="updateProductPrice">New Price:</label>
+  <input type="number" id="updateProductPrice" placeholder="Enter new price">
+
+  <button id="updateProductButton">Update Product</button>
+</div>
+
+<h2>Delete Product</h2>
+<div id="deleteProductContainer">
+  <label for="deleteProductId">Product ID:</label>
+  <input type="text" id="deleteProductId" placeholder="Enter Product ID to delete">
+  <button id="deleteProductButton">Delete Product</button>
+</div>
+</div>
+
+<script src="script.js"></script> 
+</body>
+</html>
