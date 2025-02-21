@@ -59,4 +59,9 @@ This will collect the required data from an external API and process it accordin
 # Render
 https://nosql-final-3.onrender.com
 
+### open source API for products
+https://fakestoreapi.com/products
+
+### ERD diagram
+
 ![erd_diagram](5307554627316740981.jpg)
