@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const MONGO_URI = "mongodb://127.0.0.1:27017/online_store";
+const MONGO_URI = "mongodb+srv://Aika:080116bs@online-store.kl09t.mongodb.net/?retryWrites=true&w=majority&appName=online-store";
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("Connected to MongoDB"))
